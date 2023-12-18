@@ -18,6 +18,14 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteTask)
             }
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        if value.translation.height > 0 && abs(value.translation.height) > abs(value.translation.width) {
+                            addTask()
+                        }
+                    }
+            )
             .navigationTitle("Tasks")
             .toolbar {
                 Button("Add Task", action: addTask)
