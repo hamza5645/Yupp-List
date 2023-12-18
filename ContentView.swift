@@ -14,7 +14,7 @@ struct ContentView: View {
         NavigationStack(path: $path) {
             List {
                 ForEach(task) { task in
-                    Text(task.title)
+                    TasksView(task: task)
                 }
                 .onDelete(perform: deleteTask)
             }
@@ -28,6 +28,7 @@ struct ContentView: View {
     // addTask
     func addTask() {
         let task = Task()
+        isEditing = true
         modelContext.insert(task)
     }
     
