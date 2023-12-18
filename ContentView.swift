@@ -17,6 +17,12 @@ struct ContentView: View {
                     TasksView(task: task)
                 }
                 .onDelete(perform: deleteTask)
+                .swipeActions(edge: .leading) {
+                    Button("Done") {
+                        done()
+                    }
+                    .tint(.blue)
+                }
             }
             .gesture(
                 DragGesture()
@@ -41,10 +47,16 @@ struct ContentView: View {
     }
     
     // deleteTask
-        func deleteTask(_ indexSet: IndexSet) {
-            for index in indexSet {
-                let task = task[index]
-                modelContext.delete(task)
-            }
+    func deleteTask(_ indexSet: IndexSet) {
+        for index in indexSet {
+            let task = task[index]
+            modelContext.delete(task)
         }
+    }
+    
+    // swipeDone
+    func done() {
+        let task = Task()
+        task.complete = false
+    }
 }
