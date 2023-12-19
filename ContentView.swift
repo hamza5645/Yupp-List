@@ -7,7 +7,7 @@ let yellowCustom = Color(red: 1, green: 0.811, blue: 0, opacity: 1.0)
 struct ContentView: View {
     //SwiftData
     @Environment(\.modelContext) var modelContext
-    @Query var task: [Task]
+    @Query(sort: \Task.date, order: .reverse) var task: [Task]
     @State private var path = [Task]()
     
     var body: some View {
