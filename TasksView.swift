@@ -21,9 +21,8 @@ struct TasksView: View {
                         isEditing = false
                     }
             } else {
-                Text(task.title)
+                NavigationLink(task.title, destination: DetailedView(task: task))
             }
-            Spacer()
         }
     }
 }
