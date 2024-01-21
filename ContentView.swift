@@ -17,10 +17,17 @@ struct ContentView: View {
                     TasksView(task: task)
                     //Done Gesture
                         .swipeActions(edge: .leading) {
-                            Button("Done") {
-                                done(task: task)
+                            if task.complete {
+                                Button("Not Done") {
+                                    notDone(task: task)
+                                }
+                                .tint(.yellow)
+                            } else {
+                                Button("Done") {
+                                    done(task: task)
+                                }
+                                .tint(.green)
                             }
-                            .tint(.green)
                         }
                 }
                 //Delete Gesture
@@ -60,5 +67,10 @@ struct ContentView: View {
     // swipeDone
     func done(task: Task) {
         task.complete = true
+    }
+    
+    // swipeNotDone
+    func notDone(task: Task) {
+        task.complete = false
     }
 }
