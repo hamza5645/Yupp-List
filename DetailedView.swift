@@ -14,7 +14,7 @@ struct DetailedView: View {
     var body: some View {
         VStack {
             HStack {
-                done
+                checkMarkView
                 
                 TextField(task.title, text: $task.title)
                     .font(.title)
@@ -25,18 +25,17 @@ struct DetailedView: View {
             .padding([.leading, .trailing, .bottom])
             Spacer()
             
-            Button ("completeCheck") {
-                print(task.complete)
-            }
+            //Info
             
         }
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    var done: some View {
+    //CheckMark View
+    var checkMarkView: some View {
         ZStack {
             if task.complete {
-                Image(systemName: "checkmark.square")
+                Image(systemName: "checkmark.square.fill")
                     .foregroundStyle(.green)
                     .font(.title)
             } else {

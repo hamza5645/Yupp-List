@@ -15,14 +15,16 @@ struct ContentView: View {
             List {
                 ForEach(task) { task in
                     TasksView(task: task)
+                    //Done Gesture
+                        .swipeActions(edge: .leading) {
+                            Button("Done") {
+                                done(task: task)
+                            }
+                            .tint(.green)
+                        }
                 }
+                //Delete Gesture
                 .onDelete(perform: deleteTask)
-                .swipeActions(edge: .leading) {
-                    Button("Done") {
-                        done()
-                    }
-                    .tint(.green)
-                }
             }
             //addTask Gesture
             .gesture(
@@ -56,9 +58,7 @@ struct ContentView: View {
     }
     
     // swipeDone
-    func done() {
-        let task = Task()
+    func done(task: Task) {
         task.complete = true
-        print(task.complete)
     }
 }
