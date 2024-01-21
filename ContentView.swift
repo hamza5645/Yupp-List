@@ -21,9 +21,10 @@ struct ContentView: View {
                     Button("Done") {
                         done()
                     }
-                    .tint(.blue)
+                    .tint(.green)
                 }
             }
+            //addTask Gesture
             .gesture(
                 DragGesture()
                     .onChanged { value in
@@ -57,6 +58,7 @@ struct ContentView: View {
     // swipeDone
     func done() {
         let task = Task()
-        task.complete = false
+        task.complete = true
+        print(task.complete)
     }
 }
