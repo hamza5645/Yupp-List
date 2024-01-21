@@ -35,13 +35,21 @@ struct DetailedView: View {
     var checkMarkView: some View {
         ZStack {
             if task.complete {
-                Image(systemName: "checkmark.square.fill")
-                    .foregroundStyle(.green)
-                    .font(.title)
+                Button {
+                    task.complete = false
+                } label: {
+                    Image(systemName: "checkmark.square.fill")
+                        .foregroundStyle(.green)
+                        .font(.title)
+                }
             } else {
-                Image(systemName: "checkmark.square.fill")
-                    .foregroundStyle(.red)
-                    .font(.title)
+                Button {
+                    task.complete = true
+                } label: {
+                    Image(systemName: "checkmark.square.fill")
+                        .foregroundStyle(.red)
+                        .font(.title)
+                }
             }
         }
     }
