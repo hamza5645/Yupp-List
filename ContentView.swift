@@ -7,14 +7,17 @@ let yellowCustom = Color(red: 1, green: 0.811, blue: 0, opacity: 1.0)
 struct ContentView: View {
     //SwiftData
     @Environment(\.modelContext) var modelContext
-    @Query(sort: \Task.date, order: .reverse) var task: [Task]
+    @Query(sort: [SortDescriptor(\Task.complete), SortDescriptor(\Task.date, order: .reverse)]) var task: [Task]
     @State private var path = [Task]()
+    
     
     var body: some View {
         NavigationStack(path: $path) {
             List {
                 ForEach(task) { task in
                     TasksView(task: task)
+                        .strikethrough(task.complete)
+                        .foregroundColor(task.complete ? .gray : .primary)
                     //Done Gesture
                         .swipeActions(edge: .leading) {
                             if task.complete {
@@ -72,5 +75,13 @@ struct ContentView: View {
     // swipeNotDone
     func notDone(task: Task) {
         task.complete = false
+    }
+}
+
+//Sort Boolean
+extension Bool: Comparable {
+    public static func <(lhs: Self, rhs: Self) -> Bool {
+        // the only true inequality is false < true
+        !lhs && rhs
     }
 }
