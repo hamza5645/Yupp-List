@@ -18,6 +18,7 @@ struct ContentView: View {
                     TasksView(task: task)
                         .strikethrough(task.complete)
                         .foregroundColor(task.complete ? .gray : .primary)
+                    
                     //Done Gesture
                         .swipeActions(edge: .leading) {
                             if task.complete {
@@ -36,6 +37,8 @@ struct ContentView: View {
                 //Delete Gesture
                 .onDelete(perform: deleteTask)
             }
+            .animation(.default, value: task)
+            
             //addTask Gesture
             .gesture(
                 DragGesture()
