@@ -11,9 +11,11 @@ import SwiftData
 struct DetailedView: View {
     @Bindable var task: Task
     @State private var subCompleted = false
+    @State private var selectedDate = Date()
     
     var body: some View {
         VStack {
+            //Title
             HStack {
                 checkMarkView
                 
@@ -25,6 +27,15 @@ struct DetailedView: View {
             }
             .padding([.leading, .trailing, .bottom])
             
+            DatePicker(
+                "Due Date",
+                selection: $task.dueDate,
+                in: Date()...,
+                displayedComponents: [.date]
+            )
+            .padding()
+            
+            //SubTask
             HStack {
                 TextField("Subtask", text: $task.sub)
                     .padding()
