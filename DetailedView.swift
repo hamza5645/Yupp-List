@@ -93,7 +93,7 @@ struct DetailedView: View {
         }
     }
     
-    //Schedule reminder
+    //Schedule Notifications
     func scheduleNotification(date: Date) {
         let content = UNMutableNotificationContent()
         content.title = "Yupp"
