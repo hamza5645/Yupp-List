@@ -15,9 +15,6 @@ class Task {
     var sub: String
     var date: Date
     var complete: Bool
-    var completeSort: UInt8 {
-        complete ? 1 : 0
-    }
     
     init(title: String = "", discription: String = "", sub: String = "", date: Date = .now, complete: Bool = false) {
         self.title = title

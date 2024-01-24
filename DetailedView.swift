@@ -10,6 +10,7 @@ import SwiftData
 
 struct DetailedView: View {
     @Bindable var task: Task
+    @State private var subCompleted = false
     
     var body: some View {
         VStack {
@@ -23,10 +24,32 @@ struct DetailedView: View {
                 Spacer()
             }
             .padding([.leading, .trailing, .bottom])
+            
+            HStack {
+                TextField("Subtask", text: $task.sub)
+                    .padding()
+                    .strikethrough(subCompleted, color: .gray)
+                    .foregroundStyle(subCompleted ? .gray : .primary)
+                
+                Spacer()
+                
+                Button {
+                    subCompleted.toggle()
+                } label: {
+                    if subCompleted {
+                        Image(systemName: "circle.fill")
+                            .padding()
+                    } else {
+                        Image(systemName: "circle")
+                            .padding()
+                    }
+                }
+            }
+            
+            TextField("Describe your task", text: $task.discription)
+                .padding()
+            
             Spacer()
-            
-            //Info
-            
         }
         .navigationBarTitleDisplayMode(.inline)
     }
