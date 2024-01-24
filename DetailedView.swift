@@ -7,11 +7,11 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 struct DetailedView: View {
     @Bindable var task: Task
     @State private var subCompleted = false
-    @State private var selectedDate = Date()
     
     var body: some View {
         VStack {
@@ -31,9 +31,14 @@ struct DetailedView: View {
                 "Due Date",
                 selection: $task.dueDate,
                 in: Date()...,
-                displayedComponents: [.date]
+                displayedComponents: [.date, .hourAndMinute]
             )
             .padding()
+            .datePickerStyle(.compact)
+            .onChange(of: task.dueDate) {
+                scheduleNotification(date: task.dueDate)
+                print("Success")
+            }
             
             //SubTask
             HStack {
@@ -87,4 +92,20 @@ struct DetailedView: View {
             }
         }
     }
+    
+    //Schedule reminder
+    func scheduleNotification(date: Date) {
+        let content = UNMutableNotificationContent()
+        content.title = "Yupp"
+        content.body = task.title
+        content.sound = UNNotificationSound.default
+        
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request)
+    }
+    
 }

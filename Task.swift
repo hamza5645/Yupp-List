@@ -17,7 +17,7 @@ class Task {
     var complete: Bool
     var dueDate: Date
     
-    init(title: String = "", discription: String = "", sub: String = "", date: Date = .now, complete: Bool = false, dueDate: Date = .distantFuture) {
+    init(title: String = "", discription: String = "", sub: String = "", date: Date = .now, complete: Bool = false, dueDate: Date = .now) {
         self.title = title
         self.discription = discription
         self.sub = sub

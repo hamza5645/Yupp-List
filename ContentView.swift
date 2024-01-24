@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 // Custom Yellow
 let yellowCustom = Color(red: 1, green: 0.811, blue: 0, opacity: 1.0)
@@ -53,6 +54,9 @@ struct ContentView: View {
                 Button("Add Task", action: addTask)
             }
         }
+        .onAppear {
+            requestNotificationPermission()
+        }
     }
     
     // addTask
@@ -78,6 +82,17 @@ struct ContentView: View {
     // swipeNotDone
     func notDone(task: Task) {
         task.complete = false
+    }
+    
+    //Notifications permission
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("Permission granted")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
