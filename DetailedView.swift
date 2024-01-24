@@ -37,7 +37,6 @@ struct DetailedView: View {
             .datePickerStyle(.compact)
             .onChange(of: task.dueDate) {
                 scheduleNotification(date: task.dueDate)
-                print("Success")
             }
             
             //SubTask
