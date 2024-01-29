@@ -50,9 +50,6 @@ struct ContentView: View {
                     }
             )
             .navigationTitle("Tasks")
-            .toolbar {
-                Button("Add Task", action: addTask)
-            }
         }
         .onAppear {
             requestNotificationPermission()
