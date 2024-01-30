@@ -10,6 +10,7 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query(sort: [SortDescriptor(\Task.complete), SortDescriptor(\Task.date, order: .reverse)]) var task: [Task]
     @State private var path = [Task]()
+    let firstLaunchKey = "hasLaunchedBefore"
     
     
     var body: some View {
@@ -53,6 +54,7 @@ struct ContentView: View {
         }
         .onAppear {
             requestNotificationPermission()
+            checkFirstLaunch()
         }
     }
     
@@ -90,6 +92,37 @@ struct ContentView: View {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    //Checks if user launched the app before
+    func checkFirstLaunch() {
+        if !UserDefaults.standard.bool(forKey: firstLaunchKey) {
+            // First launch, initialize tasks
+            initializeTasksWithCustom()
+
+            // Set the flag to true so this doesn't run again
+            UserDefaults.standard.set(true, forKey: firstLaunchKey)
+        }
+    }
+
+    
+    //Guide tasks
+    func initializeTasksWithCustom() {
+        let customTask1 = Task()
+        customTask1.title = "swipe right to mark us uncompleted"
+        customTask1.complete = true
+
+        let customTask2 = Task()
+        customTask2.title = "Swipe right to complete"
+
+        let customTask3 = Task()
+        customTask3.title = "Swipe left to delete"
+
+        modelContext.insert(customTask1)
+        modelContext.insert(customTask2)
+        modelContext.insert(customTask3)
+
+        try? modelContext.save()
     }
 }
 
