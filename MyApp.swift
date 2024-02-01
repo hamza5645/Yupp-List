@@ -5,7 +5,7 @@ import SwiftData
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            mimal_reproducible_example()
         }
         .modelContainer(for: Task.self)
     }
