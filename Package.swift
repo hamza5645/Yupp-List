@@ -8,19 +8,19 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "Yupp(List)",
+    name: "Yupp",
     platforms: [
         .iOS("17.0")
     ],
     products: [
         .iOSApplication(
-            name: "Yupp(List)",
+            name: "Yupp",
             targets: ["AppModule"],
             bundleIdentifier: "Hamza.Yupp-List-",
             teamIdentifier: "55L48W2DHK",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .paper),
+            appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.yellow),
             supportedDeviceFamilies: [
                 .pad,
