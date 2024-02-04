@@ -117,10 +117,14 @@ struct ContentView: View {
 
         let customTask3 = Task()
         customTask3.title = "Swipe left to delete"
+        
+        let customTask4 = Task()
+        customTask4.title = "Swipe down to add a Task"
 
         modelContext.insert(customTask1)
         modelContext.insert(customTask2)
         modelContext.insert(customTask3)
+        modelContext.insert(customTask4)
 
         try? modelContext.save()
     }
