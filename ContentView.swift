@@ -8,10 +8,10 @@ let yellowCustom = Color(red: 1, green: 0.811, blue: 0, opacity: 1.0)
 struct ContentView: View {
     //SwiftData
     @Environment(\.modelContext) var modelContext
-    @Query(sort: [SortDescriptor(\Task.complete), SortDescriptor(\Task.date, order: .reverse)]) var task: [Task]
+    @Query(sort: [SortDescriptor(\Task.complete), SortDescriptor(\Task.priority, order: .reverse), SortDescriptor(\Task.date, order: .reverse)]) var task: [Task]
     @State private var path = [Task]()
     let firstLaunchKey = "hasLaunchedBefore"
-    
+//    @FocusState private var focused: Bool?
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -42,15 +42,20 @@ struct ContentView: View {
             .animation(.default, value: task)
             
             //addTask Gesture
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        if value.translation.height > 0 && abs(value.translation.height) > abs(value.translation.width) {
-                            addTask()
-                        }
-                    }
-            )
+//            .gesture(
+//                DragGesture()
+//                    .onChanged { value in
+//                        if value.translation.height > 0 && abs(value.translation.height) > abs(value.translation.width) {
+//                            addTask()
+//                        }
+//                    }
+//            )
             .navigationTitle("Tasks")
+            .toolbar {
+                Button("Add Task") {
+                    addTask()
+                }
+            }
         }
         .onAppear {
             requestNotificationPermission()
@@ -62,6 +67,7 @@ struct ContentView: View {
     func addTask() {
         let task = Task()
         isEditing = true
+        task.priority = 3
         modelContext.insert(task)
     }
     

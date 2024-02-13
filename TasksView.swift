@@ -19,6 +19,7 @@ struct TasksView: View {
                 TextField("What do you want to do?", text: $task.title)
                     .onSubmit {
                         isEditing = false
+                        task.priority = 0
                     }
             } else {
                 NavigationLink(task.title, destination: DetailedView(task: task))
