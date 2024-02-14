@@ -82,6 +82,7 @@ struct ContentView: View {
     // swipeDone
     func done(task: Task) {
         task.complete = true
+        task.priority = 0
     }
     
     // swipeNotDone
